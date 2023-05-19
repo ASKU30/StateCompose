@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -47,13 +48,62 @@ class MainActivity : ComponentActivity() {
                     //HelloScreen()
                    // HelloScreenVm()
                    // CounterIncrement()
-                    CounterIncrement()
+                    //CounterIncrement()
+                    //CounterDecrement()
+                   // MyUi()
+                    HelloCounter()
                 }
             }
         }
     }
+}
 
 
+@Composable
+fun HelloCounter() {
+    var incrementCount by remember {
+        mutableStateOf(0)
+    }
+
+    var decrementCount by remember {
+        mutableStateOf(10)
+    }
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.fillMaxSize(1f)
+    ) {
+    IncrementCounter(incrementCount) { incrementCount++ }
+    DecrementCounter(decrementCount) { decrementCount-- }
+    }
+}
+
+@Composable
+fun IncrementCounter(count: Int, counter: () -> Unit) {
+        Button(
+            modifier = Modifier.padding(10.dp),
+            onClick = {
+            counter()
+        }) {
+            Text(
+                text = "Increment $count",
+                style = androidx.compose.ui.text.TextStyle.Default
+            )
+        }
+}
+
+@Composable
+fun DecrementCounter(count: Int, counter: () -> Unit) {
+        Button(
+            modifier = Modifier.padding(10.dp),
+            onClick = {
+                counter()
+        }) {
+            Text(
+                text = "Decrement $count",
+                style = androidx.compose.ui.text.TextStyle.Default
+            )
+        }
 }
 
 //Compose State
@@ -143,6 +193,38 @@ private fun CounterIncrement() {
         ) {
             Text(text = "Increment Count $count")
         }
+    }
+}
+
+@Preview
+@Composable
+private fun CounterDecrement() {
+    var count by remember {
+        mutableStateOf(10)
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Button(
+
+            onClick = { count-- },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Yellow,
+                contentColor = Color.Red
+            )
+        ) {
+            if (count <= 0) {
+                count = 0;
+            Text(text = "Can't be negative $count")
+            } else{
+                Text(text = "Decrement Count $count")
+            }
+        }
+
+
     }
 }
 
