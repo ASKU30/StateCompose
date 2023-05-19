@@ -73,13 +73,13 @@ fun HelloCounter() {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxSize(1f)
     ) {
-    IncrementDecrement(incrementCount) { incrementCount++ }
-    Decrement(decrementCount) { decrementCount-- }
+    IncrementCounter(incrementCount) { incrementCount++ }
+    DecrementCounter(decrementCount) { decrementCount-- }
     }
 }
 
 @Composable
-fun IncrementDecrement(count: Int, counter: () -> Unit) {
+fun IncrementCounter(count: Int, counter: () -> Unit) {
         Button(
             modifier = Modifier.padding(10.dp),
             onClick = {
@@ -93,7 +93,7 @@ fun IncrementDecrement(count: Int, counter: () -> Unit) {
 }
 
 @Composable
-fun Decrement(count: Int, counter: () -> Unit) {
+fun DecrementCounter(count: Int, counter: () -> Unit) {
         Button(
             modifier = Modifier.padding(10.dp),
             onClick = {
